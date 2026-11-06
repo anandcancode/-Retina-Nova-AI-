@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}RetinaNova AI - Diabetic Retinopathy Detection{% endblock %}</title>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- Top Demo Credentials Banner -->
+  {% if not session.get('user_id') %}
+  <div style="background: linear-gradient(90deg, #1e3a8a 0%, #0284c7 50%, #6366f1 100%); color: white; padding: 7px 16px; font-size: 12.5px; font-weight: 600; text-align: center; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; box-shadow: 0 1px 4px rgba(0,0,0,0.1);">
+    <span><i class="fas fa-key"></i> <b>Instant Demo Access:</b></span>
+    <span><b>Clinician:</b> <code style="background: rgba(255,255,255,0.22); color: #ffffff; padding: 2px 7px; border-radius: 4px; font-family: monospace;">dr.smith@retinanova.med</code> / <code style="background: rgba(255,255,255,0.22); color: #ffffff; padding: 2px 7px; border-radius: 4px; font-family: monospace;">doctor123</code></span>
+    <span style="opacity: 0.5;">|</span>
+    <span><b>Admin:</b> <code style="background: rgba(255,255,255,0.22); color: #ffffff; padding: 2px 7px; border-radius: 4px; font-family: monospace;">admin@retinanova.med</code> / <code style="background: rgba(255,255,255,0.22); color: #ffffff; padding: 2px 7px; border-radius: 4px; font-family: monospace;">admin123</code></span>
+    <a href="{{ url_for('login') }}" style="background: white; color: #1e3a8a; padding: 3px 12px; border-radius: 14px; text-decoration: none; font-size: 11.5px; font-weight: 800; margin-left: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+      Auto-Fill Sign In &rarr;
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="{{ url_for('index') }}" class="brand-logo">
+        <div class="brand-icon">
+          <i class="fas fa-eye"></i>
+        </div>
+        <div>
+          <span class="brand-title">RetinaNova<span>AI</span></span>
+          <span class="brand-tagline">Hybrid Deep Learning Diagnostic</span>
+        </div>
+      </a>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item {% if request.endpoint == 'index' %}active{% endif %}">
+          <a href="{{ url_for('index') }}"><i class="fas fa-home"></i> Home</a>
+        </li>
+        <li class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
+          <a href="{{ url_for('about') }}"><i class="fas fa-microscope"></i> About Project</a>
+        </li>
+        <li class="nav-item {% if request.endpoint == 'upload' %}active{% endif %}">
+          <a href="{{ url_for('upload') }}"><i class="fas fa-file-medical"></i> Analyze Retinal Scan</a>
+        </li>
+        {% if session.get('user_id') %}
+          <li class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+            <a href="{{ url_for('dashboard') }}"><i class="fas fa-chart-line"></i> Dashboard</a>
+          </li>
+          {% if session.get('role') == 'admin' %}
+            <li class="nav-item {% if request.endpoint == 'admin' %}active{% endif %}">
+              <a href="{{ url_for('admin') }}"><i class="fas fa-user-shield"></i> Admin</a>
+            </li>
+          {% endif %}
+        {% endif %}
+      </ul>
+
+      <div class="nav-actions">
+        {% if session.get('user_id') %}
+          <div class="user-pill">
+            <div class="user-avatar">
+              {{ session.get('username')[0]|upper }}
+            </div>
+            <span>{{ session.get('username') }}</span>
+          </div>
+          <a href="{{ url_for('logout') }}" class="btn btn-outline btn-sm">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="btn btn-outline btn-sm">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </a>
+          <a href="{{ url_for('register') }}" class="btn btn-primary btn-sm">
+            <i class="fas fa-user-plus"></i> Register
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Flash Messages -->
+  <main class="main-content">
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="alerts-container">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                <span><i class="fas fa-info-circle"></i> {{ message }}</span>
+                <button type="button" class="alert-close">&times;</button>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+
+      <!-- Universal Medical Disclaimer Banner -->
+      <div class="disclaimer-banner">
+        <i class="fas fa-shield-halved disclaimer-icon"></i>
+        <div>
+          <div class="disclaimer-title">IMPORTANT CLINICAL & RESEARCH NOTICE</div>
+          <div class="disclaimer-text">{{ disclaimer_text }}</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 12px;">
+            <div class="brand-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+            <div>
+              <span class="brand-title">RetinaNova<span>AI</span></span>
+              <span class="brand-tagline">Clinical Grade Screening</span>
+            </div>
+          </div>
+          <p>
+            An advanced AI diagnostic framework utilizing a Dual-Branch Hybrid Deep Learning 
+            architecture (Deep CNN + EfficientNet feature fusion) to detect and grade Diabetic Retinopathy severity from retinal fundus imagery.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-heading">Platform Links</div>
+          <ul class="footer-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About Diabetic Retinopathy</a></li>
+            <li><a href="{{ url_for('upload') }}">Upload & Detection</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Clinician Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-heading">Architecture & ML</div>
+          <ul class="footer-links">
+            <li><a href="{{ url_for('about') }}#architecture">Hybrid Feature Fusion</a></li>
+            <li><a href="{{ url_for('about') }}#preprocessing">Ben Graham Filtering</a></li>
+            <li><a href="{{ url_for('about') }}#stages">ICDR 5-Stage Scale</a></li>
+            <li><a href="{{ url_for('admin') }}">Administrative Telemetry</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; {{ now_year }} RetinaNova AI &bull; Diabetic Retinopathy Detection Using Hybrid Deep Learning &bull; Academic & Research Prototype
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom JavaScript -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>
+

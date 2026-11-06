@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In - RetinaNova AI{% endblock %}
+
+{% block content %}
+<div class="form-card" style="max-width: 520px;">
+  <div style="text-align: center; margin-bottom: 24px;">
+    <div class="brand-icon" style="margin: 0 auto 12px; width: 48px; height: 48px;">
+      <i class="fas fa-lock"></i>
+    </div>
+    <h2 style="font-size: 24px; font-weight: 800; color: var(--primary-navy);">Clinician & User Sign In</h2>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+      Sign in with your email address or username to access the diagnostic dashboard.
+    </p>
+  </div>
+
+  <form method="POST" action="{{ url_for('login') }}">
+    <div class="form-group">
+      <label class="form-label" for="identifier">
+        <i class="fas fa-envelope"></i> Email Address or Username
+      </label>
+      <input type="text" id="identifier" name="identifier" class="form-control" placeholder="e.g. dr.smith@retinanova.med or doctor" required autofocus>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="password">
+        <i class="fas fa-key"></i> Password
+      </label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 15px; margin-top: 8px;">
+      <i class="fas fa-sign-in-alt"></i> Sign In to Dashboard
+    </button>
+  </form>
+
+  <!-- PROMINENT DEMO ACCOUNTS & CREDENTIALS BOX -->
+  <div style="margin-top: 26px; padding: 18px; background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%); border: 1.5px solid #bfdbfe; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+      <span style="font-size: 13px; font-weight: 800; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px;">
+        <i class="fas fa-id-badge" style="color: var(--accent-blue);"></i> Instant Demo Accounts
+      </span>
+      <span style="font-size: 11px; font-weight: 700; background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: var(--radius-full);">
+        One-Click Fill
+      </span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      
+      <!-- Account 1: Clinician / Doctor -->
+      <div style="background: white; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+        <div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--primary-navy);">
+            <i class="fas fa-user-doctor" style="color: #0284c7;"></i> Clinician / Doctor Account
+          </div>
+          <div style="font-size: 12px; color: #475569; margin-top: 2px;">
+            <b>Email:</b> <code style="background: #f1f5f9; padding: 1px 4px; border-radius: 3px;">dr.smith@retinanova.med</code><br/>
+            <b>Password:</b> <code style="background: #f1f5f9; padding: 1px 4px; border-radius: 3px;">doctor123</code>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-primary" onclick="fillCreds('dr.smith@retinanova.med', 'doctor123')">
+          <i class="fas fa-bolt"></i> Auto-Fill
+        </button>
+      </div>
+
+      <!-- Account 2: Administrator -->
+      <div style="background: white; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+        <div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--primary-navy);">
+            <i class="fas fa-user-shield" style="color: #6366f1;"></i> Administrator Account
+          </div>
+          <div style="font-size: 12px; color: #475569; margin-top: 2px;">
+            <b>Email:</b> <code style="background: #f1f5f9; padding: 1px 4px; border-radius: 3px;">admin@retinanova.med</code><br/>
+            <b>Password:</b> <code style="background: #f1f5f9; padding: 1px 4px; border-radius: 3px;">admin123</code>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-purple" onclick="fillCreds('admin@retinanova.med', 'admin123')">
+          <i class="fas fa-bolt"></i> Auto-Fill
+        </button>
+      </div>
+
+      <!-- Account 3: Research Fellow -->
+      <div style="background: white; border: 1px solid #cbd5e1; border-radius: var(--radius-md); padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+        <div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--primary-navy);">
+            <i class="fas fa-microscope" style="color: #10b981;"></i> Research Fellow Account
+          </div>
+          <div style="font-size: 12px; color: #475569; margin-top: 2px;">
+            <b>Email:</b> <code style="background: #f1f5f9; padding: 1px 4px; border-radius: 3px;">clinician@retinanova.med</code><br/>
+            <b>Password:</b> <code style="background: #f1f5f9; padding: 1px 4px; border-radius: 3px;">clinic123</code>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline" onclick="fillCreds('clinician@retinanova.med', 'clinic123')">
+          <i class="fas fa-bolt"></i> Auto-Fill
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 20px; font-size: 14px; color: var(--text-secondary);">
+    Don't have an account? <a href="{{ url_for('register') }}" style="font-weight: 600;">Create one here</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function fillCreds(email, password) {
+  const identInput = document.getElementById('identifier');
+  const passInput = document.getElementById('password');
+  identInput.value = email;
+  passInput.value = password;
+  identInput.focus();
+}
+</script>
+{% endblock %}

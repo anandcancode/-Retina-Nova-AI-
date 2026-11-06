@@ -1,0 +1,35 @@
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE / Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+
+# Temporary Uploads & Reports (Keep directory structure with .gitkeep)
+uploads/*
+!uploads/.gitkeep
+!uploads/enhanced/
+!uploads/reports/
+uploads/enhanced/*
+!uploads/enhanced/.gitkeep
+uploads/reports/*
+!uploads/reports/.gitkeep
+
+# Edge / Chrome User Data
+edge_temp/

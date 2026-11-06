@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Retinal Scan - RetinaNova AI{% endblock %}
+
+{% block content %}
+<div style="max-width: 860px; margin: 0 auto;">
+
+  <!-- Header -->
+  <div style="text-align: center; margin-bottom: 32px;">
+    <span class="section-tag">Clinical Image Ingestion</span>
+    <h1 style="font-size: 32px; font-weight: 900; color: var(--primary-navy); margin-bottom: 10px;">
+      Retinal Fundus Image Analysis
+    </h1>
+    <p style="font-size: 15px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+      Upload a digital fundus photograph for automatic preprocessing and 5-stage Diabetic Retinopathy severity grading using our Hybrid Deep Learning architecture.
+    </p>
+  </div>
+
+  <!-- Upload Card -->
+  <div class="upload-card">
+    <form id="uploadForm" action="{{ url_for('analyze') }}" method="POST" enctype="multipart/form-data">
+      
+      <!-- Drag & Drop Zone -->
+      <div class="dropzone-area" id="dropzone">
+        <i class="fas fa-cloud-arrow-up dropzone-icon"></i>
+        <div class="dropzone-title">Drag & Drop Retinal Fundus Image Here</div>
+        <div class="dropzone-subtitle">or click anywhere in this box to browse files</div>
+        
+        <input type="file" id="fundusImageInput" name="fundus_image" accept=".jpg,.jpeg,.png,image/jpeg,image/png" style="display: none;">
+        
+        <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('fundusImageInput').click();">
+          <i class="fas fa-folder-open"></i> Browse Image File
+        </button>
+        
+        <div style="margin-top: 14px; font-size: 12px; color: var(--text-muted);">
+          Supported Formats: JPG, JPEG, PNG &bull; Maximum File Size: 15 MB
+        </div>
+      </div>
+
+      <!-- Live Image Preview Container -->
+      <div class="preview-container" id="previewContainer">
+        <div style="font-size: 13px; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase;">
+          <i class="fas fa-eye"></i> Selected Scan Preview
+        </div>
+        <img id="previewImg" class="preview-img" src="" alt="Retinal Preview">
+        <div style="display: flex; justify-content: center; gap: 16px; font-size: 13px; color: var(--text-secondary);">
+          <span><b>File:</b> <span id="previewName">-</span></span>
+          <span><b>Size:</b> <span id="previewSize">-</span></span>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div style="margin-top: 28px; text-align: center;">
+        <button type="submit" id="analyzeBtn" class="btn btn-primary btn-lg" style="width: 100%; max-width: 400px;" disabled>
+          <i class="fas fa-microscope"></i> Analyze Retinal Image
+        </button>
+      </div>
+    </form>
+
+    <!-- Quick Clinical Benchmark Samples -->
+    <div class="sample-selector">
+      <h4>
+        <i class="fas fa-vial-circle-check" style="color: var(--accent-blue);"></i> 
+        Or Select a Pre-Generated Clinical Benchmark Sample:
+      </h4>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+        Click any sample below to immediately test the end-to-end preprocessing, hybrid inference, and PDF report generation pipeline:
+      </p>
+
+      <div class="sample-pills">
+        <a href="{{ url_for('sample_scan', filename='stage0_normal.png') }}" class="sample-pill-btn">
+          <span class="badge badge-success" style="padding: 2px 6px; font-size: 10px;">0</span>
+          Normal Retina (No DR)
+        </a>
+        <a href="{{ url_for('sample_scan', filename='stage1_mild_dr.png') }}" class="sample-pill-btn">
+          <span class="badge badge-info" style="padding: 2px 6px; font-size: 10px;">1</span>
+          Mild NPDR (Microaneurysms)
+        </a>
+        <a href="{{ url_for('sample_scan', filename='stage2_moderate_dr.png') }}" class="sample-pill-btn">
+          <span class="badge badge-warning" style="padding: 2px 6px; font-size: 10px;">2</span>
+          Moderate NPDR (Exudates)
+        </a>
+        <a href="{{ url_for('sample_scan', filename='stage3_severe_dr.png') }}" class="sample-pill-btn">
+          <span class="badge badge-danger" style="padding: 2px 6px; font-size: 10px;">3</span>
+          Severe NPDR (4-2-1 Rule)
+        </a>
+        <a href="{{ url_for('sample_scan', filename='stage4_proliferative_dr.png') }}" class="sample-pill-btn">
+          <span class="badge badge-critical" style="padding: 2px 6px; font-size: 10px;">4</span>
+          Proliferative DR (Neovascular)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Animation Overlay -->
+  <div id="loadingOverlay" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; color: white;">
+    <div style="background: white; color: var(--primary-navy); padding: 36px 48px; border-radius: var(--radius-xl); text-align: center; box-shadow: var(--shadow-xl); max-width: 420px;">
+      <i class="fas fa-spinner fa-spin" style="font-size: 48px; color: var(--accent-blue); margin-bottom: 20px;"></i>
+      <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">Analyzing Retinal Fundus</h3>
+      <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">
+        1. Executing Ben Graham local contrast filtering...<br/>
+        2. Extracting dual-branch feature maps (CNN + EfficientNet)...<br/>
+        3. Calculating multi-class Softmax probabilities...
+      </p>
+      <div style="font-size: 12px; color: var(--accent-blue); font-weight: 600;">Please wait, compiling clinical report...</div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+

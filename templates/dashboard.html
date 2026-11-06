@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}Clinician Dashboard - RetinaNova AI{% endblock %}
+
+{% block content %}
+<div style="max-width: 1100px; margin: 0 auto;">
+
+  <!-- Dashboard Greeting Header -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 16px;">
+    <div>
+      <span class="section-tag">Clinical Workspace</span>
+      <h1 style="font-size: 30px; font-weight: 900; color: var(--primary-navy);">
+        Welcome back, {{ user.full_name or user.username }}
+      </h1>
+      <p style="font-size: 14px; color: var(--text-secondary); margin-top: 4px;">
+        Overview of your analyzed retinal fundus scans and diagnostic history.
+      </p>
+    </div>
+    <a href="{{ url_for('upload') }}" class="btn btn-primary btn-lg">
+      <i class="fas fa-plus-circle"></i> New Retinal Scan
+    </a>
+  </div>
+
+  <!-- Key Metrics Ribbon -->
+  <div class="stats-ribbon" style="margin-bottom: 32px;">
+    <div class="stat-item">
+      <div class="stat-value" style="color: var(--accent-blue);">{{ total_scans }}</div>
+      <div class="stat-label">Your Analyzed Scans</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" style="color: #10b981;">{{ stage_counts.get(0, 0) }}</div>
+      <div class="stat-label">Normal Retinas (Stage 0)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" style="color: #f59e0b;">{{ stage_counts.get(1, 0) + stage_counts.get(2, 0) }}</div>
+      <div class="stat-label">Mild / Moderate NPDR</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" style="color: #ef4444;">{{ stage_counts.get(3, 0) + stage_counts.get(4, 0) }}</div>
+      <div class="stat-label">Severe / Proliferative</div>
+    </div>
+  </div>
+
+  <!-- Charts & Analysis Overview Grid -->
+  <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px; margin-bottom: 32px;">
+    <!-- Stage Distribution Doughnut Chart -->
+    <div class="panel-card" style="margin-bottom: 0;">
+      <div class="panel-title">
+        <i class="fas fa-chart-pie" style="color: var(--accent-purple);"></i>
+        Severity Distribution
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+        Proportion of scanned fundus images across the 5 DR categories:
+      </p>
+      <div style="position: relative; height: 220px;">
+        <canvas id="stageDistributionChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Quick Actions & Guidelines -->
+    <div class="panel-card" style="margin-bottom: 0;">
+      <div class="panel-title">
+        <i class="fas fa-bullseye" style="color: var(--accent-blue);"></i>
+        Quick Clinical Actions & Shortcuts
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px;">
+        <a href="{{ url_for('upload') }}" style="display: block; padding: 16px; background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); text-decoration: none;">
+          <div style="font-weight: 700; color: var(--primary-navy); margin-bottom: 4px;">
+            <i class="fas fa-cloud-arrow-up" style="color: var(--accent-blue);"></i> Upload Retinal Image
+          </div>
+          <p style="font-size: 12.5px; color: var(--text-secondary); margin: 0;">
+            Upload high-resolution fundus images for automatic 5-stage inference.
+          </p>
+        </a>
+
+        <a href="{{ url_for('about') }}#stages" style="display: block; padding: 16px; background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); text-decoration: none;">
+          <div style="font-weight: 700; color: var(--primary-navy); margin-bottom: 4px;">
+            <i class="fas fa-book-medical" style="color: #10b981;"></i> ICDR Guidelines
+          </div>
+          <p style="font-size: 12.5px; color: var(--text-secondary); margin: 0;">
+            Review international clinical grading standards and 4-2-1 rules.
+          </p>
+        </a>
+
+        <a href="{{ url_for('sample_scan', filename='stage2_moderate_dr.png') }}" style="display: block; padding: 16px; background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); text-decoration: none;">
+          <div style="font-weight: 700; color: var(--primary-navy); margin-bottom: 4px;">
+            <i class="fas fa-vial" style="color: #f59e0b;"></i> Run Test Benchmark
+          </div>
+          <p style="font-size: 12.5px; color: var(--text-secondary); margin: 0;">
+            Instantly evaluate the pre-loaded Moderate NPDR fundus sample.
+          </p>
+        </a>
+
+        <div style="display: block; padding: 16px; background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+          <div style="font-weight: 700; color: var(--primary-navy); margin-bottom: 4px;">
+            <i class="fas fa-microchip" style="color: #6366f1;"></i> Model State
+          </div>
+          <p style="font-size: 12.5px; color: #10b981; margin: 0; font-weight: 600;">
+            <i class="fas fa-circle-check"></i> Hybrid Model Loaded & Active
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Predictions Table -->
+  <div class="panel-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px;">
+      <div class="panel-title" style="margin-bottom: 0;">
+        <i class="fas fa-clock-rotate-left" style="color: var(--accent-blue);"></i>
+        Your Retinal Detection History
+      </div>
+      <span style="font-size: 13px; color: var(--text-muted);">
+        Showing latest {{ predictions|length }} evaluations
+      </span>
+    </div>
+
+    {% if predictions %}
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Scan ID</th>
+              <th>Thumbnail</th>
+              <th>Date & Time</th>
+              <th>Diagnosis / Stage</th>
+              <th>Risk Level</th>
+              <th>Confidence</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in predictions %}
+              <tr>
+                <td><strong>#{{ p.id }}</strong></td>
+                <td>
+                  <img src="{{ url_for('serve_uploads', filename=p.filename) }}" alt="Thumb" class="table-thumb">
+                </td>
+                <td style="font-size: 13px; color: var(--text-secondary);">
+                  {{ p.created_at }}
+                </td>
+                <td>
+                  <strong>{{ p.predicted_stage }}</strong>: {{ p.stage_name }}
+                </td>
+                <td>
+                  {% if p.predicted_class == 0 %}
+                    <span class="badge badge-success">Normal</span>
+                  {% elif p.predicted_class == 1 %}
+                    <span class="badge badge-info">Low Risk</span>
+                  {% elif p.predicted_class == 2 %}
+                    <span class="badge badge-warning">Moderate</span>
+                  {% elif p.predicted_class == 3 %}
+                    <span class="badge badge-danger">High Risk</span>
+                  {% else %}
+                    <span class="badge badge-critical">Critical</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <strong>{{ "%.2f"|format(p.confidence) }}%</strong>
+                </td>
+                <td style="text-align: right;">
+                  <div style="display: inline-flex; gap: 8px;">
+                    <a href="{{ url_for('result', prediction_id=p.id) }}" class="btn btn-outline btn-sm">
+                      <i class="fas fa-eye"></i> View
+                    </a>
+                    {% if p.report_pdf_path %}
+                      <a href="{{ url_for('download_report', prediction_id=p.id) }}" class="btn btn-primary btn-sm" title="Download PDF Report">
+                        <i class="fas fa-file-pdf"></i> PDF
+                      </a>
+                    {% endif %}
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div style="text-align: center; padding: 48px 20px; background-color: var(--bg-subtle); border-radius: var(--radius-md);">
+        <i class="fas fa-folder-open" style="font-size: 42px; color: var(--text-muted); margin-bottom: 12px;"></i>
+        <h3 style="font-size: 18px; font-weight: 700; color: var(--primary-navy); margin-bottom: 6px;">No Scans Analyzed Yet</h3>
+        <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 18px;">
+          You haven't uploaded or analyzed any retinal fundus scans yet.
+        </p>
+        <a href="{{ url_for('upload') }}" class="btn btn-primary">
+          <i class="fas fa-arrow-up-from-bracket"></i> Upload Your First Retinal Image
+        </a>
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const ctx = document.getElementById('stageDistributionChart').getContext('2d');
+  
+  const stageCounts = {{ stage_counts|tojson }};
+  const dataValues = [
+    stageCounts[0] || 0,
+    stageCounts[1] || 0,
+    stageCounts[2] || 0,
+    stageCounts[3] || 0,
+    stageCounts[4] || 0
+  ];
+
+  // If no scans, display a placeholder slice
+  const total = dataValues.reduce((a, b) => a + b, 0);
+  const displayData = total > 0 ? dataValues : [1, 0, 0, 0, 0];
+  const displayLabels = ["Stage 0: Normal", "Stage 1: Mild", "Stage 2: Moderate", "Stage 3: Severe", "Stage 4: Proliferative"];
+
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: displayLabels,
+      datasets: [{
+        data: displayData,
+        backgroundColor: [
+          '#10b981', // Normal
+          '#3b82f6', // Mild
+          '#f59e0b', // Moderate
+          '#f97316', // Severe
+          '#ef4444'  // Proliferative
+        ],
+        borderWidth: 2,
+        borderColor: '#ffffff'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { boxWidth: 12, font: { family: 'Inter', size: 11 } }
+        }
+      },
+      cutout: '65%'
+    }
+  });
+});
+</script>
+{% endblock %}
+

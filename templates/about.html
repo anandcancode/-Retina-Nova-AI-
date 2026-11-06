@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}About Project - Diabetic Retinopathy & Hybrid Deep Learning{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto;">
+
+  <!-- Page Header -->
+  <div style="text-align: center; margin-bottom: 40px;">
+    <span class="section-tag">Scientific Background & Technical Architecture</span>
+    <h1 style="font-size: 36px; font-weight: 900; color: var(--primary-navy); margin-bottom: 12px;">
+      About Diabetic Retinopathy & Hybrid Deep Learning
+    </h1>
+    <p style="font-size: 16px; color: var(--text-secondary); max-width: 720px; margin: 0 auto;">
+      A comprehensive guide to retinal pathology, clinical severity staging, early screening significance, and our dual-branch neural architecture.
+    </p>
+  </div>
+
+  <!-- 1. What is Diabetic Retinopathy -->
+  <div class="panel-card" id="retinopathy-overview">
+    <div class="panel-title">
+      <i class="fas fa-eye" style="color: var(--accent-blue);"></i>
+      1. What is Diabetic Retinopathy?
+    </div>
+    <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">
+      <strong>Diabetic Retinopathy (DR)</strong> is a sight-threatening microvascular complication of both Type 1 and Type 2 Diabetes Mellitus. The retina is a specialized, metabolically active layer of neural tissue at the back of the eye containing photoreceptor cells (rods and cones). These cells require an uninterrupted supply of oxygen and glucose delivered through an intricate network of microscopic retinal arterioles and capillaries.
+    </p>
+    <p style="color: var(--text-secondary); line-height: 1.7;">
+      When blood glucose remains chronically elevated, it causes biochemical stress, endothelial dysfunction, loss of capillary pericytes, and micro-thrombosis. The weakened vessels form focal outpouchings known as <em>microaneurysms</em>, leak serum lipids into the retina (forming yellow <em>hard exudates</em>), and rupture into <em>dot-blot hemorrhages</em>. As ischemia worsens, retinal tissue releases Vascular Endothelial Growth Factor (VEGF), triggering uncontrolled, fragile new vessel growth (neovascularization) that can bleed or detach the retina.
+    </p>
+  </div>
+
+  <!-- 2. Causes and Risk Factors -->
+  <div class="panel-card">
+    <div class="panel-title">
+      <i class="fas fa-stethoscope" style="color: #ef4444;"></i>
+      2. Major Causes and Clinical Risk Factors
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 14px;">
+      <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px;">
+        <h4 style="font-size: 15px; font-weight: 700; color: var(--primary-navy); margin-bottom: 8px;">
+          <i class="fas fa-dna" style="color: var(--accent-blue);"></i> Systemic & Glycemic Factors
+        </h4>
+        <ul class="clinical-list">
+          <li><span class="check-icon">&bull;</span> <b>Chronically Elevated HbA1c:</b> Uncontrolled blood sugar is the strongest predictor of onset and rapid progression.</li>
+          <li><span class="check-icon">&bull;</span> <b>Duration of Diabetes:</b> After 20 years of diabetes, nearly 80% of individuals show some retinopathy changes.</li>
+          <li><span class="check-icon">&bull;</span> <b>Hypertension (High Blood Pressure):</b> Elevates capillary shear stress and accelerates retinal vessel rupture.</li>
+        </ul>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px;">
+        <h4 style="font-size: 15px; font-weight: 700; color: var(--primary-navy); margin-bottom: 8px;">
+          <i class="fas fa-heartbeat" style="color: #8b5cf6;"></i> Co-Morbidities & Secondary Risks
+        </h4>
+        <ul class="clinical-list">
+          <li><span class="check-icon">&bull;</span> <b>Dyslipidemia:</b> High LDL and triglycerides correlate with increased hard exudate deposition and macular edema.</li>
+          <li><span class="check-icon">&bull;</span> <b>Diabetic Nephropathy:</b> Microalbuminuria and renal impairment mirror microvascular retinal damage.</li>
+          <li><span class="check-icon">&bull;</span> <b>Pregnancy:</b> Gestational states can rapidly accelerate pre-existing diabetic retinopathy.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. The 5 Clinical Stages of Diabetic Retinopathy -->
+  <div class="panel-card" id="stages">
+    <div class="panel-title">
+      <i class="fas fa-layer-group" style="color: #f59e0b;"></i>
+      3. International Clinical Diabetic Retinopathy (ICDR) 5 Stages
+    </div>
+    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+      The global medical standard classifies Diabetic Retinopathy into five progressive severity categories:
+    </p>
+
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <!-- Stage 0 -->
+      <div style="border-left: 4px solid #10b981; background: #f0fdf4; padding: 16px; border-radius: 4px 8px 8px 4px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <h4 style="font-size: 15px; font-weight: 800; color: #065f46;">Class 0: No Diabetic Retinopathy (Normal)</h4>
+          <span class="badge badge-success">Normal / Healthy</span>
+        </div>
+        <p style="font-size: 13.5px; color: #166534; line-height: 1.5;">
+          No ophthalmoscopic abnormalities detected. Retinal blood vessels are well-perfused, clear optic nerve margin, and normal foveal contour. Recommendation: Routine annual dilated examination.
+        </p>
+      </div>
+
+      <!-- Stage 1 -->
+      <div style="border-left: 4px solid #3b82f6; background: #eff6ff; padding: 16px; border-radius: 4px 8px 8px 4px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <h4 style="font-size: 15px; font-weight: 800; color: #1e40af;">Class 1: Mild Non-Proliferative Retinopathy (NPDR)</h4>
+          <span class="badge badge-info">Low Risk</span>
+        </div>
+        <p style="font-size: 13.5px; color: #1e3a8a; line-height: 1.5;">
+          Presence of at least one microaneurysm (tiny focal capillary outpouching visible as small red dots). No exudates or hemorrhages yet. Recommendation: Dilated follow-up in 6–9 months; optimize glycemic control.
+        </p>
+      </div>
+
+      <!-- Stage 2 -->
+      <div style="border-left: 4px solid #f59e0b; background: #fffbeb; padding: 16px; border-radius: 4px 8px 8px 4px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <h4 style="font-size: 15px; font-weight: 800; color: #92400e;">Class 2: Moderate Non-Proliferative Retinopathy (NPDR)</h4>
+          <span class="badge badge-warning">Moderate Risk</span>
+        </div>
+        <p style="font-size: 13.5px; color: #78350f; line-height: 1.5;">
+          More than microaneurysms: multiple dot-and-blot intraretinal hemorrhages, hard lipid exudates, and occasional cotton wool spots (micro-infarcts) in 1 to 3 quadrants. Recommendation: Specialist exam in 3–6 months.
+        </p>
+      </div>
+
+      <!-- Stage 3 -->
+      <div style="border-left: 4px solid #f97316; background: #fff7ed; padding: 16px; border-radius: 4px 8px 8px 4px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <h4 style="font-size: 15px; font-weight: 800; color: #c2410c;">Class 3: Severe Non-Proliferative Retinopathy (NPDR)</h4>
+          <span class="badge badge-danger">High Risk</span>
+        </div>
+        <p style="font-size: 13.5px; color: #9a3412; line-height: 1.5;">
+          Meets the international 4-2-1 clinical rule: severe hemorrhages in all 4 quadrants, definite venous beading in 2+ quadrants, or intraretinal microvascular abnormalities (IRMA) in 1+ quadrant. >50% convert to PDR within 1 year. Recommendation: Urgent retina specialist review in 2–4 weeks.
+        </p>
+      </div>
+
+      <!-- Stage 4 -->
+      <div style="border-left: 4px solid #ef4444; background: #fef2f2; padding: 16px; border-radius: 4px 8px 8px 4px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <h4 style="font-size: 15px; font-weight: 800; color: #991b1b;">Class 4: Proliferative Diabetic Retinopathy (PDR)</h4>
+          <span class="badge badge-critical">Critical / Alert</span>
+        </div>
+        <p style="font-size: 13.5px; color: #7f1d1d; line-height: 1.5;">
+          Pathological neovascularization on the optic disc (NVD) or elsewhere (NVE). Fragile new vessels bleed into the vitreous body or cause fibrovascular traction and retinal detachment. Recommendation: Emergency intervention (PRP laser / anti-VEGF injections / vitrectomy) within 24–48 hours.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. How Hybrid Deep Learning Works -->
+  <div class="panel-card" id="architecture">
+    <div class="panel-title">
+      <i class="fas fa-network-wired" style="color: var(--accent-purple);"></i>
+      4. How the Hybrid Deep Learning Architecture Works
+    </div>
+    <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;">
+      Conventional computer vision models for retinal analysis typically employ either a standard standalone CNN or an off-the-shelf pre-trained transfer network. However:
+    </p>
+    <ul class="clinical-list" style="margin-bottom: 18px;">
+      <li><span class="check-icon">&bull;</span> <b>Standalone CNNs</b> excel at capturing low-level, high-frequency spatial details (e.g. sharp red pixel clusters of tiny microaneurysms) but lack rich semantic abstractions.</li>
+      <li><span class="check-icon">&bull;</span> <b>Pre-trained Backbones (like EfficientNetB0)</b> possess deep semantic perceptual hierarchies trained on millions of diverse images, but can smooth out subtle microscopic retinal lesions during aggressive downsampling.</li>
+    </ul>
+
+    <div style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border: 1px solid #c7d2fe; border-radius: var(--radius-lg); padding: 24px; margin-bottom: 20px;">
+      <h4 style="font-size: 16px; font-weight: 800; color: #1e1b4b; margin-bottom: 10px;">
+        <i class="fas fa-code-merge" style="color: #6366f1;"></i> The Multi-Branch Feature Fusion Solution
+      </h4>
+      <p style="font-size: 14px; color: #312e81; line-height: 1.6;">
+        Our <strong>Hybrid Architecture</strong> simultaneously routes the preprocessed retinal fundus image through both pathways in parallel:
+      </p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px;">
+        <div style="background: white; padding: 14px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+          <strong style="color: #1e3a8a;">Branch 1: Custom Deep CNN</strong><br/>
+          <span style="font-size: 13px; color: #475569;">4 convolutional blocks with Batch Normalization and Max-Pooling to capture fine microvascular textures and focal lesions.</span>
+        </div>
+        <div style="background: white; padding: 14px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+          <strong style="color: #4338ca;">Branch 2: EfficientNet Backbone</strong><br/>
+          <span style="font-size: 13px; color: #475569;">Inverted residual blocks with compound scaling for global anatomical feature abstraction and vascular geometry.</span>
+        </div>
+      </div>
+      <div style="margin-top: 14px; background: white; padding: 14px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); text-align: center;">
+        <strong style="color: #0f172a;">Feature Fusion Layer & Classification Head:</strong><br/>
+        <span style="font-size: 13px; color: #334155;">Concatenates both 256-dimensional feature vectors into a 512-dimensional fused representation, projected through dense regularized layers (Dropout 0.4) to a 5-unit Softmax output layer.</span>
+      </div>
+    </div>
+
+    <!-- Training Curves and Confusion Matrix -->
+    <h4 style="font-size: 16px; font-weight: 800; color: var(--primary-navy); margin: 24px 0 12px;">
+      Trained Model Performance & Evaluation Visualizations
+    </h4>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px; background: white; text-align: center;">
+        <img src="{{ url_for('static', filename='images/training_curves.png') }}" alt="Training & Validation Curves" style="border-radius: var(--radius-sm); margin-bottom: 8px;">
+        <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Figure 1: Accuracy & Loss Learning Curves</span>
+      </div>
+      <div style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px; background: white; text-align: center;">
+        <img src="{{ url_for('static', filename='images/confusion_matrix.png') }}" alt="Model Confusion Matrix" style="border-radius: var(--radius-sm); margin-bottom: 8px;">
+        <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Figure 2: 5-Stage Classification Confusion Matrix</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Technologies Used -->
+  <div class="panel-card">
+    <div class="panel-title">
+      <i class="fas fa-microchip" style="color: var(--accent-blue);"></i>
+      5. Technologies & Stack Used in This Project
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px;">
+      <div style="padding: 16px; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <strong style="color: var(--primary-navy);"><i class="fab fa-python" style="color: #3b82f6;"></i> Backend</strong>
+        <p style="font-size: 13px; color: #475569; margin-top: 6px;">Python 3.14 & Flask Framework with secure session authentication and Werkzeug password hashing.</p>
+      </div>
+      <div style="padding: 16px; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <strong style="color: var(--primary-navy);"><i class="fas fa-brain" style="color: #6366f1;"></i> AI & Deep Learning</strong>
+        <p style="font-size: 13px; color: #475569; margin-top: 6px;">TensorFlow / Keras 2.22, EfficientNetB0 backbone, custom CNN branch, and dual feature fusion layer.</p>
+      </div>
+      <div style="padding: 16px; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <strong style="color: var(--primary-navy);"><i class="fas fa-image" style="color: #10b981;"></i> Computer Vision</strong>
+        <p style="font-size: 13px; color: #475569; margin-top: 6px;">OpenCV & NumPy implementing Ben Graham's local contrast enhancement and circular retinal aperture masking.</p>
+      </div>
+      <div style="padding: 16px; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <strong style="color: var(--primary-navy);"><i class="fas fa-database" style="color: #f59e0b;"></i> Database</strong>
+        <p style="font-size: 13px; color: #475569; margin-top: 6px;">SQLite relational database storing user profiles, hashed credentials, scan metadata, and prediction history.</p>
+      </div>
+      <div style="padding: 16px; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <strong style="color: var(--primary-navy);"><i class="fas fa-chart-simple" style="color: #0284c7;"></i> Visualization & UI</strong>
+        <p style="font-size: 13px; color: #475569; margin-top: 6px;">Chart.js dynamic probability radar and bar graphs, responsive medical UI CSS, and FontAwesome icons.</p>
+      </div>
+      <div style="padding: 16px; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <strong style="color: var(--primary-navy);"><i class="fas fa-file-pdf" style="color: #ef4444;"></i> Reporting</strong>
+        <p style="font-size: 13px; color: #475569; margin-top: 6px;">ReportLab PDF generation engine producing clinical reports with embedded scans and sign-off blocks.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
