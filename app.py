@@ -424,6 +424,24 @@ def serve_uploads(filename):
     return send_file(file_path)
 
 
+@app.route("/download/paper")
+def download_paper():
+    """Download the academic research paper (.docx or .md)."""
+    format_type = request.args.get("format", "docx")
+    if format_type == "md":
+        paper_file = os.path.join(BASE_DIR, "RESEARCH_PAPER.md")
+        mimetype = "text/markdown"
+        filename = "RetinaNova_AI_Research_Paper.md"
+    else:
+        paper_file = os.path.join(BASE_DIR, "RESEARCH_PAPER.docx")
+        mimetype = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        filename = "RetinaNova_AI_Research_Paper.docx"
+
+    if not os.path.exists(paper_file):
+        abort(404)
+    return send_file(paper_file, as_attachment=True, download_name=filename, mimetype=mimetype)
+
+
 # -------------------------------------------------------------
 # Admin Dashboard
 # -------------------------------------------------------------

@@ -14,6 +14,16 @@
     <p style="font-size: 16px; color: var(--text-secondary); max-width: 720px; margin: 0 auto;">
       A comprehensive guide to retinal pathology, clinical severity staging, early screening significance, and our dual-branch neural architecture.
     </p>
+
+    <!-- Research Paper Download Buttons -->
+    <div style="margin-top: 20px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+      <a href="{{ url_for('download_paper', format='docx') }}" class="btn btn-primary" style="box-shadow: var(--shadow-md);">
+        <i class="fas fa-file-word"></i> Download Full Research Paper (.DOCX - 18 Pages)
+      </a>
+      <a href="{{ url_for('download_paper', format='md') }}" class="btn btn-outline">
+        <i class="fas fa-file-code"></i> View Full Paper Source (.MD)
+      </a>
+    </div>
   </div>
 
   <!-- 1. What is Diabetic Retinopathy -->
