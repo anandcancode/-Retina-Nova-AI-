@@ -76,20 +76,28 @@ def create_presentation():
     p2.font.color.rgb = RGBColor(203, 213, 225)
 
     # Presenter info
-    info_box = slide1.shapes.add_textbox(Inches(1.6), Inches(5.6), Inches(10), Inches(1.4))
+    info_box = slide1.shapes.add_textbox(Inches(1.6), Inches(5.2), Inches(10.5), Inches(1.8))
     itf = info_box.text_frame
     ip1 = itf.paragraphs[0]
-    ip1.text = "Presented by: Anand Raj Kushwaha"
+    ip1.text = "Project Group Members:"
     ip1.font.name = "Calibri"
-    ip1.font.size = Pt(16)
+    ip1.font.size = Pt(13)
     ip1.font.bold = True
-    ip1.font.color.rgb = WHITE
+    ip1.font.color.rgb = BLUE
 
     ip2 = itf.add_paragraph()
-    ip2.text = "Department of Computer Science & Engineering | Academic Year 2026"
+    ip2.text = "Anushka Verma  •  Anand Raj Kushwaha  •  Saksham Singh  •  Rajnish Kumar  •  Rakshak Dubey"
     ip2.font.name = "Calibri"
-    ip2.font.size = Pt(13)
-    ip2.font.color.rgb = RGBColor(148, 163, 184)
+    ip2.font.size = Pt(15)
+    ip2.font.bold = True
+    ip2.font.color.rgb = WHITE
+    ip2.space_after = Pt(4)
+
+    ip3 = itf.add_paragraph()
+    ip3.text = "Department of Computer Science & Engineering | Capstone Project 2026"
+    ip3.font.name = "Calibri"
+    ip3.font.size = Pt(12)
+    ip3.font.color.rgb = RGBColor(148, 163, 184)
 
     # =========================================================================
     # SLIDE 2: Problem Statement & Clinical Motivation
@@ -429,7 +437,7 @@ def create_presentation():
 
     qp2 = qtf.add_paragraph()
     qp2.alignment = PP_ALIGN.CENTER
-    qp2.text = "GitHub Repository: https://github.com/anandcancode/-Retina-Nova-AI-\nLive Server: http://127.0.0.1:5000\nAuthor: Anand Raj Kushwaha (anandrkushwaha13@gmail.com)"
+    qp2.text = "Project Team: Anushka Verma | Anand Raj Kushwaha | Saksham Singh | Rajnish Kumar | Rakshak Dubey\nGitHub Repository: https://github.com/anandcancode/-Retina-Nova-AI-\nDepartment of Computer Science & Engineering | Correspondence: anandrkushwaha13@gmail.com"
     qp2.font.name = "Calibri"
     qp2.font.size = Pt(13)
     qp2.font.color.rgb = RGBColor(148, 163, 184)

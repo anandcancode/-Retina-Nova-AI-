@@ -21,9 +21,9 @@ PAPER_DOCX_PATH = os.path.join(BASE_DIR, "RESEARCH_PAPER.docx")
 # Complete, deep, publication-standard academic paper text
 PAPER_CONTENT = r"""# Diabetic Retinopathy Detection Using Hybrid Deep Learning
 
-**Anand Raj Kushwaha**$^1$, **Dr. Sarah Smith**$^2$, **AI & Medical Imaging Research Group**$^1$  
+**Anushka Verma**$^1$, **Anand Raj Kushwaha**$^1$, **Saksham Singh**$^1$, **Rajnish Kumar**$^1$, **Rakshak Dubey**$^1$  
 $^1$Department of Computer Science & Engineering  
-$^2$Department of Ophthalmology, Clinical Medical Sciences  
+*Project Group — Capstone Research*  
 *Correspondence: anandrkushwaha13@gmail.com*
 
 ---
@@ -590,11 +590,11 @@ def create_styled_word_document():
             run.font.color.rgb = RGBColor(15, 23, 42)
 
         # Author and Affiliations
-        elif line.startswith("**Anand Raj Kushwaha**"):
+        elif line.startswith("**Anushka Verma**") or line.startswith("**Anand Raj Kushwaha**"):
             p = doc.add_paragraph()
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p.paragraph_format.space_after = Pt(4)
-            run = p.add_run("Anand Raj Kushwaha¹*, Dr. Sarah Smith², AI & Medical Imaging Research Group¹")
+            run = p.add_run("Anushka Verma¹, Anand Raj Kushwaha¹*, Saksham Singh¹, Rajnish Kumar¹, Rakshak Dubey¹")
             run.font.name = 'Times New Roman'
             run.font.size = Pt(11)
             run.font.bold = True
@@ -605,13 +605,15 @@ def create_styled_word_document():
             p_aff.paragraph_format.space_after = Pt(14)
             run_aff = p_aff.add_run(
                 "¹Department of Computer Science & Engineering\n"
-                "²Department of Ophthalmology, Clinical Medical Sciences\n"
                 "*Corresponding Author: anandrkushwaha13@gmail.com"
             )
             run_aff.font.name = 'Times New Roman'
             run_aff.font.size = Pt(9.5)
             run_aff.font.italic = True
             run_aff.font.color.rgb = RGBColor(70, 70, 70)
+            # Skip the next affiliation / correspondence markdown lines
+            while i + 1 < len(lines) and (lines[i + 1].strip().startswith("$^1$") or lines[i + 1].strip().startswith("*")):
+                i += 1
 
         # Skip horizontal dividers
         elif line == "---":

@@ -1,8 +1,8 @@
 # Diabetic Retinopathy Detection Using Hybrid Deep Learning
 
-**Anand Raj Kushwaha**$^1$, **Dr. Sarah Smith**$^2$, **AI & Medical Imaging Research Group**$^1$  
+**Anushka Verma**$^1$, **Anand Raj Kushwaha**$^1$, **Saksham Singh**$^1$, **Rajnish Kumar**$^1$, **Rakshak Dubey**$^1$  
 $^1$Department of Computer Science & Engineering  
-$^2$Department of Ophthalmology, Clinical Medical Sciences  
+*Project Group — Capstone Research*  
 *Correspondence: anandrkushwaha13@gmail.com*
 
 ---
