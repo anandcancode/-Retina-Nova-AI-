@@ -13,7 +13,7 @@ Diabetic Retinopathy (DR) is the principal etiology of preventable vision loss a
 
 To overcome these paradigm limitations, this paper presents **RetinaNova AI**, a novel, end-to-end Dual-Branch Hybrid Deep Learning architecture coupled with Ben Graham's adaptive local contrast normalization and circular aperture calibration. The framework synergistically unifies: (i) a custom four-stage deep convolutional branch engineered with localized receptive fields to preserve high-frequency textural lesion biomarkers, and (ii) a pre-trained EfficientNetB0 backbone that extracts robust global semantic representations and vascular branching morphology. The dual latent feature representations are dynamically fused through a 512-dimensional multi-modal fusion layer, followed by a regularized multi-stage dense classification head with Softmax activation targeting the five-class International Clinical Diabetic Retinopathy (ICDR) scale (Normal, Mild NPDR, Moderate NPDR, Severe NPDR, and Proliferative DR).
 
-Rigorous empirical evaluation conducted across standardized benchmark cohorts (APTOS 2019 Blindness Detection, EyePACS, and clinical validation subsets) demonstrates that the proposed hybrid network achieves an overall classification accuracy of **94.2%**, an area under the receiver operating characteristic curve (**ROC-AUC**) of **0.978**, and a **Quadratic Weighted Kappa ($\kappa$) score of 0.916**, significantly surpassing single-branch baseline models (VGG-16, ResNet-50, and isolated EfficientNet). Furthermore, the complete framework has been packaged into an operational, low-latency clinical web system integrated with an automated diagnostic PDF reporting engine and auditable clinician dashboard, bridging the gap between theoretical machine learning research and frontline tele-ophthalmological deployment.
+Rigorous empirical evaluation conducted across standardized benchmark cohorts (APTOS 2019 Blindness Detection, EyePACS, and clinical validation subsets) demonstrates that the proposed hybrid network achieves an overall classification accuracy of **94.2%**, an area under the receiver operating characteristic curve (**ROC-AUC**) of **0.978**, and a **Quadratic Weighted Kappa ($\\kappa$) score of 0.916**, significantly surpassing single-branch baseline models (VGG-16, ResNet-50, and isolated EfficientNet). Furthermore, the complete framework has been packaged into an operational, low-latency clinical web system integrated with an automated diagnostic PDF reporting engine and auditable clinician dashboard, bridging the gap between theoretical machine learning research and frontline tele-ophthalmological deployment.
 
 **Keywords:** Diabetic Retinopathy, Hybrid Deep Learning, Feature Fusion, Convolutional Neural Networks, EfficientNet, Retinal Fundus Imaging, Medical Image Processing, Computer-Aided Diagnosis (CAD), Ben Graham Normalization, International Clinical DR Scale.
 
@@ -52,7 +52,7 @@ With the advent of Deep Convolutional Neural Networks (DCNNs), automated retinal
 To resolve these architectural limitations, this research introduces an integrated medical AI paradigm termed **RetinaNova AI**, comprising a novel dual-branch hybrid deep learning model and a clinical tele-diagnostic suite. The primary contributions of this paper are fourfold:
 
 1. **Dual-Branch Hybrid Fusion Architecture:** We design and implement a symbiotic neural architecture combining a custom 4-stage convolutional neural network (Branch 1, dedicated to micro-lesion textural extraction) with a pre-trained EfficientNetB0 backbone (Branch 2, dedicated to global structural and semantic feature abstraction), unified via an explicit 512-dimensional multi-modal latent fusion layer.
-2. **Standardized Clinical Preprocessing Pipeline:** We formulate an automated preprocessing workflow incorporating threshold-guided black background removal, aspect-ratio preserving circular aperture cropping, and Ben Graham's local contrast subtraction ($I_{\text{enh}} = 4I - 4\text{GaussianBlur}(I, \sigma=10) + 128$), eliminating inter-camera illumination variance and amplifying faint vascular abnormalities.
+2. **Standardized Clinical Preprocessing Pipeline:** We formulate an automated preprocessing workflow incorporating threshold-guided black background removal, aspect-ratio preserving circular aperture cropping, and Ben Graham's local contrast subtraction ($I_{\\text{enh}} = 4I - 4\\text{GaussianBlur}(I, \\sigma=10) + 128$), eliminating inter-camera illumination variance and amplifying faint vascular abnormalities.
 3. **Comprehensive ICDR 5-Stage Classification with Class-Calibrated Probability Distribution:** Rather than simplifying the challenge into a binary healthy/sick classification, our model performs fine-grained grading across all five clinical tiers of the International Clinical Diabetic Retinopathy scale, generating Softmax confidence scores and risk stratifications.
 4. **End-to-End Clinical Deployment and Auditable Reporting:** We demonstrate the real-world operational viability of the architecture by deploying it within a responsive full-stack medical platform featuring SQLite database persistence, secure session encryption, an administrative tele-screening audit stream, and automated ReportLab-driven clinical PDF report generation equipped with ophthalmologist sign-off blocks.
 
@@ -95,10 +95,10 @@ To establish rigorous ground truth and diagnostic validity, this research strict
 
 | Stage / Class | ICDR Nomenclature | Pathognomonic Ophthalmoscopic Biomarkers | Clinical Risk Category | Recommended Clinical Protocol |
 |:---:|:---|:---|:---:|:---|
-| **Class 0** | **No DR (Normal)** | Completely clear fundus; normal arteriolar-to-venular ratio (2:3); intact foveal avascular zone (FAZ); absence of microvascular lesions. | Normal / Healthy | Annual dilated eye screening; strict systemic glycemic control (target $\text{HbA1c} < 7.0\%$). |
-| **Class 1** | **Mild NPDR** | Microaneurysms only (isolated focal dilations of capillary walls visible as tiny red punctate dots, $\leq 125\,\mu\text{m}$). | Low Risk | Dilated fundus examination in 6–9 months; optimization of blood pressure and lipid profile. |
+| **Class 0** | **No DR (Normal)** | Completely clear fundus; normal arteriolar-to-venular ratio (2:3); intact foveal avascular zone (FAZ); absence of microvascular lesions. | Normal / Healthy | Annual dilated eye screening; strict systemic glycemic control (target $\\text{HbA1c} < 7.0\\%$). |
+| **Class 1** | **Mild NPDR** | Microaneurysms only (isolated focal dilations of capillary walls visible as tiny red punctate dots, $\\leq 125\\,\\mu\\text{m}$). | Low Risk | Dilated fundus examination in 6–9 months; optimization of blood pressure and lipid profile. |
 | **Class 2** | **Moderate NPDR** | More than microaneurysms: multiple intraretinal dot-blot hemorrhages in 1–3 quadrants; hard lipid exudates; occasional cotton wool spots; absence of severe 4-2-1 criteria. | Moderate Risk | Comprehensive specialist review in 3–6 months; Optical Coherence Tomography (OCT) to rule out Diabetic Macular Edema (DME). |
-| **Class 3** | **Severe NPDR** | Adherence to International 4-2-1 Rule: diffuse intraretinal hemorrhages in all 4 quadrants ($>20$ per quadrant); definite venous beading in $\geq 2$ quadrants; or prominent IRMA in $\geq 1$ quadrant. | High Risk ($>50\%$ 1-yr conversion to PDR) | Urgent retina specialist consultation within 2–4 weeks; fluorescein angiography (FA); evaluation for prophylactic panretinal photocoagulation (PRP). |
+| **Class 3** | **Severe NPDR** | Adherence to International 4-2-1 Rule: diffuse intraretinal hemorrhages in all 4 quadrants ($>20$ per quadrant); definite venous beading in $\\geq 2$ quadrants; or prominent IRMA in $\\geq 1$ quadrant. | High Risk ($>50\\%$ 1-yr conversion to PDR) | Urgent retina specialist consultation within 2–4 weeks; fluorescein angiography (FA); evaluation for prophylactic panretinal photocoagulation (PRP). |
 | **Class 4** | **Proliferative DR (PDR)** | Neovascularization of the disc (NVD) or retina (NVE); preretinal or vitreous hemorrhage; fibrovascular proliferation with retinal traction. | Critical / Emergency Alert | Immediate intervention within 24–48 hours; emergent panretinal photocoagulation laser therapy; intravitreal anti-VEGF injections; vitrectomy if vitreous hemorrhage persists. |
 
 ---
@@ -172,108 +172,108 @@ The architectural pipeline of **RetinaNova AI** is structured into four sequenti
 Digital fundus photographs acquired across heterogeneous clinics display significant artifacts: non-uniform illumination, variable lens pigmentation, vignetting, and broad, uninformative black camera borders. Directly feeding raw fundus images into convolutional networks forces kernels to allocate expressive capacity to trivial background boundaries rather than vascular pathologies.
 
 #### 4.1.1 Black Border Removal via Luminance Thresholding
-Let $I_{\text{raw}} \in \mathbb{R}^{H \times W \times 3}$ represent the raw fundus image. We compute a gray-scale luminance representation $I_{\text{gray}} = 0.299 R + 0.587 G + 0.114 B$. A binary mask $M_{\text{crop}}(x, y)$ is generated by thresholding against background tolerance $\tau = 7$:
+Let $I_{\\text{raw}} \\in \\mathbb{R}^{H \\times W \\times 3}$ represent the raw fundus image. We compute a gray-scale luminance representation $I_{\\text{gray}} = 0.299 R + 0.587 G + 0.114 B$. A binary mask $M_{\\text{crop}}(x, y)$ is generated by thresholding against background tolerance $\\tau = 7$:
 
-$$M_{\text{crop}}(x, y) = \begin{cases} 1, & \text{if } I_{\text{gray}}(x, y) > \tau \\ 0, & \text{otherwise} \end{cases}$$
+$$M_{\\text{crop}}(x, y) = \\begin{cases} 1, & \\text{if } I_{\\text{gray}}(x, y) > \\tau \\\\ 0, & \\text{otherwise} \\end{cases}$$
 
-The bounding coordinates $[y_{\min}, y_{\max}]$ and $[x_{\min}, x_{\max}]$ along the respective coordinate projections:
+The bounding coordinates $[y_{\\min}, y_{\\max}]$ and $[x_{\\min}, x_{\\max}]$ along the respective coordinate projections:
 
-$$y_{\min} = \min \{ y \mid \sum_x M_{\text{crop}}(x, y) > 0 \}, \quad y_{\max} = \max \{ y \mid \sum_x M_{\text{crop}}(x, y) > 0 \}$$
+$$y_{\\min} = \\min \\{ y \\mid \\sum_x M_{\\text{crop}}(x, y) > 0 \\}, \\quad y_{\\max} = \\max \\{ y \\mid \\sum_x M_{\\text{crop}}(x, y) > 0 \\}$$
 
-$$x_{\min} = \min \{ x \mid \sum_y M_{\text{crop}}(x, y) > 0 \}, \quad x_{\max} = \max \{ x \mid \sum_y M_{\text{crop}}(x, y) > 0 \}$$
+$$x_{\\min} = \\min \\{ x \\mid \\sum_y M_{\\text{crop}}(x, y) > 0 \\}, \\quad x_{\\max} = \\max \\{ x \\mid \\sum_y M_{\\text{crop}}(x, y) > 0 \\}$$
 
-The cropped image $I_{\text{cropped}} = I_{\text{raw}}[y_{\min}:y_{\max}, x_{\min}:x_{\max}]$ eliminates up to 40% of non-retinal dark border space while preserving the full diameter of the vascular retina.
+The cropped image $I_{\\text{cropped}} = I_{\\text{raw}}[y_{\\min}:y_{\\max}, x_{\\min}:x_{\\max}]$ eliminates up to 40% of non-retinal dark border space while preserving the full diameter of the vascular retina.
 
 #### 4.1.2 Spatial Bilinear Interpolation
-$I_{\text{cropped}}$ is subsequently resized to a standardized input tensor resolution:
+$I_{\\text{cropped}}$ is subsequently resized to a standardized input tensor resolution:
 
-$$I_{\text{res}} = \mathcal{R}(I_{\text{cropped}}, (224, 224))$$
+$$I_{\\text{res}} = \\mathcal{R}(I_{\\text{cropped}}, (224, 224))$$
 
 using area-based bilinear decimation to suppress high-frequency aliasing.
 
 #### 4.1.3 Ben Graham's Local Contrast Subtraction
-To resolve the intra-retinal illumination gradient (where the central optic disc is over-illuminated while temporal margins are under-exposed), we deploy the modified Ben Graham normalization method [24]. The enhanced image $I_{\text{enh}}$ is computed via weighted local Gaussian blur subtraction:
+To resolve the intra-retinal illumination gradient (where the central optic disc is over-illuminated while temporal margins are under-exposed), we deploy the modified Ben Graham normalization method [24]. The enhanced image $I_{\\text{enh}}$ is computed via weighted local Gaussian blur subtraction:
 
-$$I_{\text{enh}} = \alpha \cdot I_{\text{res}} + \beta \cdot \left( I_{\text{res}} * G_{\sigma} \right) + \gamma$$
+$$I_{\\text{enh}} = \\alpha \\cdot I_{\\text{res}} + \\beta \\cdot \\left( I_{\\text{res}} * G_{\\sigma} \\right) + \\gamma$$
 
-where $G_{\sigma}$ denotes a symmetric 2D Gaussian filter kernel with scale parameter $\sigma = 10$, and the empirically calibrated scalar weights are set to $\alpha = 4$, $\beta = -4$, and offset $\gamma = 128$. This mathematical operation functions as a bandpass filter: slow-varying illumination drifts are subtracted out, while localized high-frequency pixel deviations—precisely corresponding to petechial hemorrhages, hard lipid plaques, and microaneurysms—are magnified by a factor of 4.
+where $G_{\\sigma}$ denotes a symmetric 2D Gaussian filter kernel with scale parameter $\\sigma = 10$, and the empirically calibrated scalar weights are set to $\\alpha = 4$, $\\beta = -4$, and offset $\\gamma = 128$. This mathematical operation functions as a bandpass filter: slow-varying illumination drifts are subtracted out, while localized high-frequency pixel deviations—precisely corresponding to petechial hemorrhages, hard lipid plaques, and microaneurysms—are magnified by a factor of 4.
 
 #### 4.1.4 Circular Aperture Masking & Dynamic Normalization
-To suppress spurious boundary halo artifacts created by Gaussian convolution along the circular camera rim, a synthetic circular binary aperture mask $M_{\text{circ}}$ is applied:
+To suppress spurious boundary halo artifacts created by Gaussian convolution along the circular camera rim, a synthetic circular binary aperture mask $M_{\\text{circ}}$ is applied:
 
-$$M_{\text{circ}}(x, y) = \begin{cases} 1, & \text{if } \sqrt{(x - x_c)^2 + (y - y_c)^2} \leq 0.48 \cdot \min(H, W) \\ 0, & \text{otherwise} \end{cases}$$
+$$M_{\\text{circ}}(x, y) = \\begin{cases} 1, & \\text{if } \\sqrt{(x - x_c)^2 + (y - y_c)^2} \\leq 0.48 \\cdot \\min(H, W) \\\\ 0, & \\text{otherwise} \\end{cases}$$
 
-where $(x_c, y_c)$ denotes the geometric center of the resized frame. The normalized input tensor $\mathbf{X} \in \mathbb{R}^{1 \times 224 \times 224 \times 3}$ is obtained by scaling intensity values to $[0.0, 1.0]$:
+where $(x_c, y_c)$ denotes the geometric center of the resized frame. The normalized input tensor $\\mathbf{X} \\in \\mathbb{R}^{1 \\times 224 \\times 224 \\times 3}$ is obtained by scaling intensity values to $[0.0, 1.0]$:
 
-$$\mathbf{X} = \frac{I_{\text{enh}} \odot M_{\text{circ}}}{255.0}$$
+$$\\mathbf{X} = \\frac{I_{\\text{enh}} \\odot M_{\\text{circ}}}{255.0}$$
 
 ---
 
 ### 4.2 Dual-Branch Feature Extraction Architecture
 
-Rather than forcing a single network to concurrently resolve microscopic spatial nuances and macroscopic anatomical semantics, our architecture bifurcates the input tensor $\mathbf{X}$ across two specialized, concurrent pathways.
+Rather than forcing a single network to concurrently resolve microscopic spatial nuances and macroscopic anatomical semantics, our architecture bifurcates the input tensor $\\mathbf{X}$ across two specialized, concurrent pathways.
 
 #### 4.2.1 Branch 1: Custom Deep CNN (Micro-Lesion Textural Extractor)
-Branch 1 is a custom-designed, 4-stage convolutional neural network specifically engineered with small $3 \times 3$ convolutional receptive fields, unit stride, and identical padding. Small receptive fields prevent the spatial erosion of isolated microaneurysms.
+Branch 1 is a custom-designed, 4-stage convolutional neural network specifically engineered with small $3 \\times 3$ convolutional receptive fields, unit stride, and identical padding. Small receptive fields prevent the spatial erosion of isolated microaneurysms.
 
-Each convolutional stage $k \in \{1, 2, 3, 4\}$ comprises:
-1. **2D Convolution:** $\mathbf{H}_k^{(1)} = \text{ReLU}\left( \mathbf{W}_k * \mathbf{H}_{k-1} + \mathbf{b}_k \right)$, with filter counts $C_k \in \{32, 64, 128, 256\}$.
+Each convolutional stage $k \\in \\{1, 2, 3, 4\\}$ comprises:
+1. **2D Convolution:** $\\mathbf{H}_k^{(1)} = \\text{ReLU}\\left( \\mathbf{W}_k * \\mathbf{H}_{k-1} + \\mathbf{b}_k \\right)$, with filter counts $C_k \\in \\{32, 64, 128, 256\\}$.
 2. **Batch Normalization (BN):** Accelerates training convergence and alleviates internal covariate shift:
-   $$\hat{\mathbf{H}}_k = \frac{\mathbf{H}_k - \mu_{\mathcal{B}}}{\sqrt{\sigma_{\mathcal{B}}^2 + \epsilon}} \cdot \gamma + \beta$$
-3. **Max Pooling:** Downsamples spatial dimensions by a factor of 2: $\mathbf{H}_k = \text{MaxPool}_{2\times2}(\hat{\mathbf{H}}_k)$.
+   $$\\hat{\\mathbf{H}}_k = \\frac{\\mathbf{H}_k - \\mu_{\\mathcal{B}}}{\\sqrt{\\sigma_{\\mathcal{B}}^2 + \\epsilon}} \\cdot \\gamma + \\beta$$
+3. **Max Pooling:** Downsamples spatial dimensions by a factor of 2: $\\mathbf{H}_k = \\text{MaxPool}_{2\\times2}(\\hat{\\mathbf{H}}_k)$.
 
 At the termination of stage 4, spatial dimensions are aggregated through a **Global Average Pooling (GAP)** layer:
 
-$$\mathbf{g}_{\text{CNN}} = \frac{1}{H_4 \times W_4} \sum_{i=1}^{H_4} \sum_{j=1}^{W_4} \mathbf{H}_4(i, j, :)$$
+$$\\mathbf{g}_{\\text{CNN}} = \\frac{1}{H_4 \\times W_4} \\sum_{i=1}^{H_4} \\sum_{j=1}^{W_4} \\mathbf{H}_4(i, j, :)$$
 
 This is followed by a fully-connected projection with Dropout ($p = 0.4$) to yield the localized lesion feature vector:
 
-$$\mathbf{f}_{\text{CNN}} = \text{Dropout}_{0.4}\left( \text{ReLU}\left( \mathbf{W}_{\text{c}} \mathbf{g}_{\text{CNN}} + \mathbf{b}_{\text{c}} \right) \right) \in \mathbb{R}^{256}$$
+$$\\mathbf{f}_{\\text{CNN}} = \\text{Dropout}_{0.4}\\left( \\text{ReLU}\\left( \\mathbf{W}_{\\text{c}} \\mathbf{g}_{\\text{CNN}} + \\mathbf{b}_{\\text{c}} \\right) \\right) \\in \\mathbb{R}^{256}$$
 
 #### 4.2.2 Branch 2: EfficientNetB0 (Global Semantic Extractor)
 Branch 2 incorporates an EfficientNetB0 backbone [19] pre-trained on ImageNet. EfficientNet leverages mobile inverted bottleneck convolutions (**MBConv**) with depthwise separable convolutions and squeeze-and-excitation (SE) optimization.
 
-The compound scaling mechanism scales network depth ($d$), width ($w$), and resolution ($r$) uniformly through a fixed composite coefficient $\phi$:
+The compound scaling mechanism scales network depth ($d$), width ($w$), and resolution ($r$) uniformly through a fixed composite coefficient $\\phi$:
 
-$$\text{Depth: } d = \alpha^\phi, \quad \text{Width: } w = \beta^\phi, \quad \text{Resolution: } r = \gamma^\phi$$
+$$\\text{Depth: } d = \\alpha^\\phi, \\quad \\text{Width: } w = \\beta^\\phi, \\quad \\text{Resolution: } r = \\gamma^\\phi$$
 
-subject to $\alpha \cdot \beta^2 \cdot \gamma^2 \approx 2$ and $\alpha \geq 1, \beta \geq 1, \gamma \geq 1$.
+subject to $\\alpha \\cdot \\beta^2 \\cdot \\gamma^2 \\approx 2$ and $\\alpha \\geq 1, \\beta \\geq 1, \\gamma \\geq 1$.
 
-For Branch 2, the final classification layer of EfficientNetB0 is severed, extracting features directly from the top convolutional feature maps ($7 \times 7 \times 1280$). Global Average Pooling compresses this map into a 1280-dimensional representation, which is projected into a 256-dimensional semantic feature vector:
+For Branch 2, the final classification layer of EfficientNetB0 is severed, extracting features directly from the top convolutional feature maps ($7 \\times 7 \\times 1280$). Global Average Pooling compresses this map into a 1280-dimensional representation, which is projected into a 256-dimensional semantic feature vector:
 
-$$\mathbf{f}_{\text{Eff}} = \text{Dropout}_{0.4}\left( \text{ReLU}\left( \mathbf{W}_{\text{eff}} \mathbf{g}_{\text{Eff}} + \mathbf{b}_{\text{eff}} \right) \right) \in \mathbb{R}^{256}$$
+$$\\mathbf{f}_{\\text{Eff}} = \\text{Dropout}_{0.4}\\left( \\text{ReLU}\\left( \\mathbf{W}_{\\text{eff}} \\mathbf{g}_{\\text{Eff}} + \\mathbf{b}_{\\text{eff}} \\right) \\right) \\in \\mathbb{R}^{256}$$
 
 ### 4.3 Feature Fusion and Latent Representation
 
 The feature vectors from both complementary domains are combined through an explicit concatenation operation in the latent bottleneck:
 
-$$\mathbf{z}_{\text{fused}} = \left[ \mathbf{f}_{\text{CNN}} \, \parallel \, \mathbf{f}_{\text{Eff}} \right] \in \mathbb{R}^{512}$$
+$$\\mathbf{z}_{\\text{fused}} = \\left[ \\mathbf{f}_{\\text{CNN}} \\, \\parallel \\, \\mathbf{f}_{\\text{Eff}} \\right] \\in \\mathbb{R}^{512}$$
 
-This 512-dimensional fused descriptor unites the fine-grained pathological lesion cues ($\mathbf{f}_{\text{CNN}}$) with the macroscopic anatomical geometry ($\mathbf{f}_{\text{Eff}}$).
+This 512-dimensional fused descriptor unites the fine-grained pathological lesion cues ($\mathbf{f}_{\\text{CNN}}$) with the macroscopic anatomical geometry ($\mathbf{f}_{\\text{Eff}}$).
 
 The fused representation is subsequently routed through a two-stage regularized classification head:
 1. **Dense Projection 1:**
-   $$\mathbf{a}_1 = \text{Dropout}_{0.4}\left( \text{BN}\left( \text{ReLU}\left( \mathbf{W}_{\text{fc1}} \mathbf{z}_{\text{fused}} + \mathbf{b}_{\text{fc1}} \right) \right) \right) \in \mathbb{R}^{256}$$
+   $$\\mathbf{a}_1 = \\text{Dropout}_{0.4}\\left( \\text{BN}\\left( \\text{ReLU}\\left( \\mathbf{W}_{\\text{fc1}} \\mathbf{z}_{\\text{fused}} + \\mathbf{b}_{\\text{fc1}} \\right) \\right) \\right) \\in \\mathbb{R}^{256}$$
 2. **Dense Projection 2:**
-   $$\mathbf{a}_2 = \text{Dropout}_{0.3}\left( \text{ReLU}\left( \mathbf{W}_{\text{fc2}} \mathbf{a}_1 + \mathbf{b}_{\text{fc2}} \right) \right) \in \mathbb{R}^{128}$$
+   $$\\mathbf{a}_2 = \\text{Dropout}_{0.3}\\left( \\text{ReLU}\\left( \\mathbf{W}_{\\text{fc2}} \\mathbf{a}_1 + \\mathbf{b}_{\\text{fc2}} \\right) \\right) \\in \\mathbb{R}^{128}$$
 
 ### 4.4 Multi-Class Softmax Classification Head
 
-The final layer projects $\mathbf{a}_2$ into $K = 5$ output logits corresponding to the ICDR classes. The normalized posterior probability distribution $\mathbf{p} = [p_0, p_1, p_2, p_3, p_4]$ is computed via the Softmax activation function:
+The final layer projects $\\mathbf{a}_2$ into $K = 5$ output logits corresponding to the ICDR classes. The normalized posterior probability distribution $\\mathbf{p} = [p_0, p_1, p_2, p_3, p_4]$ is computed via the Softmax activation function:
 
-$$p_k = P(y = k \mid \mathbf{X}) = \frac{\exp(z_k)}{\sum_{j=0}^{4} \exp(z_j)}, \quad \forall k \in \{0, 1, 2, 3, 4\}$$
+$$p_k = P(y = k \\mid \\mathbf{X}) = \\frac{\\exp(z_k)}{\\sum_{j=0}^{4} \\exp(z_j)}, \\quad \\forall k \\in \\{0, 1, 2, 3, 4\\}$$
 
-The predicted clinical stage $\hat{y}$ and associated model confidence $C$ are determined as:
+The predicted clinical stage $\\hat{y}$ and associated model confidence $C$ are determined as:
 
-$$\hat{y} = \arg\max_{k \in \{0, \dots, 4\}} p_k, \qquad C = \max_{k \in \{0, \dots, 4\}} p_k \times 100\%$$
+$$\\hat{y} = \\arg\\max_{k \\in \\{0, \\dots, 4\\}} p_k, \\qquad C = \\max_{k \\in \\{0, \\dots, 4\\}} p_k \\times 100\\%$$
 
 ### 4.5 Loss Formulation and Optimization Protocol
 
-The network is trained end-to-end utilizing categorical cross-entropy loss with dynamic label smoothing ($\epsilon_{\text{ls}} = 0.05$) to prevent over-confident predictions on borderline borderline NPDR lesions:
+The network is trained end-to-end utilizing categorical cross-entropy loss with dynamic label smoothing ($\\epsilon_{\\text{ls}} = 0.05$) to prevent over-confident predictions on borderline borderline NPDR lesions:
 
-$$\mathcal{L}_{\text{CE}} = -\sum_{k=0}^{4} y_k^{\text{smooth}} \log(p_k), \quad \text{where } y_k^{\text{smooth}} = (1 - \epsilon_{\text{ls}}) y_k + \frac{\epsilon_{\text{ls}}}{5}$$
+$$\\mathcal{L}_{\\text{CE}} = -\\sum_{k=0}^{4} y_k^{\\text{smooth}} \\log(p_k), \\quad \\text{where } y_k^{\\text{smooth}} = (1 - \\epsilon_{\\text{ls}}) y_k + \\frac{\\epsilon_{\\text{ls}}}{5}$$
 
-Optimization is performed using the Adam algorithm with an initial learning rate $\eta_0 = 1 \times 10^{-4}$, momentum parameters $\beta_1 = 0.9, \beta_2 = 0.999$, and weight decay $\lambda = 1 \times 10^{-5}$. A ReduceLROnPlateau scheduling policy reduces $\eta$ by a factor of 0.5 if validation loss plateaus for 3 consecutive epochs.
+Optimization is performed using the Adam algorithm with an initial learning rate $\\eta_0 = 1 \\times 10^{-4}$, momentum parameters $\\beta_1 = 0.9, \\beta_2 = 0.999$, and weight decay $\\lambda = 1 \\times 10^{-5}$. A ReduceLROnPlateau scheduling policy reduces $\\eta$ by a factor of 0.5 if validation loss plateaus for 3 consecutive epochs.
 
 ---
 
@@ -292,30 +292,30 @@ The primary experimental corpus was partitioned using **stratified 5-fold cross-
 To prevent overfitting on imbalanced categories (notably Stage 1 and Stage 4), robust real-time geometric and chromatic augmentations were applied during training batches:
 * Random horizontal flip ($p = 0.5$)
 * Random vertical flip ($p = 0.5$)
-* Random affine rotation: $\theta \in [-35^\circ, +35^\circ]$
-* Random zoom: factor $\in [0.85, 1.15]$
-* Contrast jittering: intensity range $\in [0.9, 1.1]$
-* Random shear: range $\pm 8^\circ$
+* Random affine rotation: $\\theta \\in [-35^\\circ, +35^\\circ]$
+* Random zoom: factor $\\in [0.85, 1.15]$
+* Contrast jittering: intensity range $\\in [0.9, 1.1]$
+* Random shear: range $\\pm 8^\\circ$
 
 ### 5.3 Quantitative Evaluation Metrics
 
 In multi-class medical diagnosis, unweighted accuracy is profoundly insufficient due to severe class skew. Accordingly, our evaluation incorporates five complementary clinical metrics:
 
 1. **Overall Multiclass Accuracy (Acc):**
-   $$\text{Acc} = \frac{\sum_{k=0}^4 \text{TP}_k}{\sum_{k=0}^4 (\text{TP}_k + \text{FP}_k + \text{FN}_k + \text{TN}_k)}$$
+   $$\\text{Acc} = \\frac{\\sum_{k=0}^4 \\text{TP}_k}{\\sum_{k=0}^4 (\\text{TP}_k + \\text{FP}_k + \\text{FN}_k + \\text{TN}_k)}$$
 
 2. **Macro-Averaged Sensitivity / Recall (Sens):**
-   $$\text{Sens} = \frac{1}{5} \sum_{k=0}^4 \frac{\text{TP}_k}{\text{TP}_k + \text{FN}_k}$$
+   $$\\text{Sens} = \\frac{1}{5} \\sum_{k=0}^4 \\frac{\\text{TP}_k}{\\text{TP}_k + \\text{FN}_k}$$
 
 3. **Macro-Averaged Specificity (Spec):**
-   $$\text{Spec} = \frac{1}{5} \sum_{k=0}^4 \frac{\text{TN}_k}{\text{TN}_k + \text{FP}_k}$$
+   $$\\text{Spec} = \\frac{1}{5} \\sum_{k=0}^4 \\frac{\\text{TN}_k}{\\text{TN}_k + \\text{FP}_k}$$
 
 4. **Macro-Averaged F1-Score:**
-   $$\text{F1} = \frac{1}{5} \sum_{k=0}^4 \frac{2 \cdot \text{Precision}_k \cdot \text{Recall}_k}{\text{Precision}_k + \text{Recall}_k}$$
+   $$\\text{F1} = \\frac{1}{5} \\sum_{k=0}^4 \\frac{2 \\cdot \\text{Precision}_k \\cdot \\text{Recall}_k}{\\text{Precision}_k + \\text{Recall}_k}$$
 
-5. **Quadratic Weighted Kappa ($\kappa$):**
+5. **Quadratic Weighted Kappa ($\\kappa$):**
    The gold standard benchmark metric in clinical grading competitions, penalizing distance-weighted misclassifications (e.g., misclassifying Stage 0 as Stage 4 receives a significantly harsher penalty than misclassifying Stage 0 as Stage 1):
-   $$\kappa = 1 - \frac{\sum_{i=0}^4 \sum_{j=0}^4 w_{ij} O_{ij}}{\sum_{i=0}^4 \sum_{j=0}^4 w_{ij} E_{ij}}, \quad \text{where } w_{ij} = \frac{(i - j)^2}{(K - 1)^2}$$
+   $$\\kappa = 1 - \\frac{\\sum_{i=0}^4 \\sum_{j=0}^4 w_{ij} O_{ij}}{\\sum_{i=0}^4 \\sum_{j=0}^4 w_{ij} E_{ij}}, \\quad \\text{where } w_{ij} = \\frac{(i - j)^2}{(K - 1)^2}$$
    Here, $O_{ij}$ denotes the observed confusion matrix, $E_{ij}$ is the expected chance agreement matrix, and $K = 5$.
 
 ---
@@ -328,7 +328,7 @@ Table 2 details the comparative empirical results of the proposed **RetinaNova A
 
 ### Table 2: Quantitative Performance Benchmark Comparison Across 5-Class DR Grading
 
-| Architecture / Framework | Base Backbone | Parameters (M) | Test Accuracy (%) | Macro F1-Score | Quadratic Kappa ($\kappa$) | Multi-Class ROC-AUC |
+| Architecture / Framework | Base Backbone | Parameters (M) | Test Accuracy (%) | Macro F1-Score | Quadratic Kappa ($\\kappa$) | Multi-Class ROC-AUC |
 |:---|:---|:---:|:---:|:---:|:---:|:---:|
 | Standard VGG-16 [26] | Single CNN | 138.3 M | 81.4% | 0.768 | 0.742 | 0.884 |
 | ResNet-50 [15] | Single ResNet | 25.6 M | 86.8% | 0.824 | 0.829 | 0.923 |
@@ -340,6 +340,8 @@ Table 2 details the comparative empirical results of the proposed **RetinaNova A
 | **Proposed RetinaNova AI (Full Hybrid)**| **Dual-Branch Fusion** | **7.9 M** | **94.2%** | **0.928** | **0.916** | **0.978** |
 
 As demonstrated in Table 2, the proposed **RetinaNova AI** framework achieves a peak **Accuracy of 94.2%** and a **Quadratic Weighted Kappa of 0.916**, outperforming standalone EfficientNetB0 by +3.5% in accuracy and +0.032 in Kappa score, while utilizing only 7.9 million parameters—less than 6% of the parameter burden of VGG-16.
+
+![Figure 1: Training convergence and validation loss/accuracy dynamics over 50 epochs on benchmark fundus dataset](static/images/training_curves.png)
 
 ### 6.2 Per-Class Diagnostic Metrics
 
@@ -365,6 +367,8 @@ Critical clinical observations derived from Table 3:
 
 ### 6.3 Confusion Matrix and Error Analysis
 
+![Figure 2: Multiclass Normalized Confusion Matrix of the Dual-Branch Hybrid Network across the 5 ICDR severity stages](static/images/confusion_matrix.png)
+
 The normalized confusion matrix of the proposed architecture demonstrates overwhelming diagonal concentration:
 
 ```
@@ -389,13 +393,13 @@ To mathematically decouple and quantify the performance contribution of each arc
 
 ### Table 4: Systematic Ablation Study Results
 
-| Model Configuration | Preprocessing (Ben Graham) | Branch 1 (Custom CNN) | Branch 2 (EfficientNet) | Feature Fusion Layer | Accuracy (%) | Kappa ($\kappa$) |
+| Model Configuration | Preprocessing (Ben Graham) | Branch 1 (Custom CNN) | Branch 2 (EfficientNet) | Feature Fusion Layer | Accuracy (%) | Kappa ($\\kappa$) |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Exp-A** | $\times$ | $\checkmark$ | $\times$ | $\times$ | 80.1% | 0.735 |
-| **Exp-B** | $\checkmark$ | $\checkmark$ | $\times$ | $\times$ | 83.2% | 0.774 |
-| **Exp-C** | $\checkmark$ | $\times$ | $\checkmark$ | $\times$ | 90.7% | 0.884 |
-| **Exp-D** | $\times$ | $\checkmark$ | $\checkmark$ | $\checkmark$ | 89.4% | 0.871 |
-| **Exp-E (Proposed)**| $\checkmark$ | $\checkmark$ | $\checkmark$ | $\checkmark$ | **94.2%** | **0.916** |
+| **Exp-A** | $\\times$ | $\\checkmark$ | $\\times$ | $\\times$ | 80.1% | 0.735 |
+| **Exp-B** | $\\checkmark$ | $\\checkmark$ | $\\times$ | $\\times$ | 83.2% | 0.774 |
+| **Exp-C** | $\\checkmark$ | $\\times$ | $\\checkmark$ | $\\times$ | 90.7% | 0.884 |
+| **Exp-D** | $\\times$ | $\\checkmark$ | $\\checkmark$ | $\\checkmark$ | 89.4% | 0.871 |
+| **Exp-E (Proposed)**| $\\checkmark$ | $\\checkmark$ | $\\checkmark$ | $\\checkmark$ | **94.2%** | **0.916** |
 
 **Ablation Insights:**
 * Incorporating Ben Graham's adaptive local contrast normalization yields an immediate **+3.1% accuracy gain** (Exp-A vs. Exp-B) by neutralizing lighting variances.
@@ -429,7 +433,7 @@ In clinical deployment scenarios, RetinaNova AI serves as an **Automated Clinica
 ### Limitations:
 Despite its high accuracy, the system exhibits operational boundaries:
 * **Media Opacities:** Severe nuclear cataracts or corneal scarring degrade image contrast beyond the recovery capabilities of Gaussian normalization.
-* **Non-Dilated Pupillary Constriction:** Sub-optimal pupil dilation ($<3\,\text{mm}$) can introduce excessive peripheral peripheral vignetting.
+* **Non-Dilated Pupillary Constriction:** Sub-optimal pupil dilation ($<3\\,\\text{mm}$) can introduce excessive peripheral peripheral vignetting.
 * **Multi-Disease Co-morbidity:** Concomitant macular conditions, such as Age-Related Macular Degeneration (AMD) or Central Retinal Vein Occlusion (CRVO), may exhibit overlapping hemorrhagic signs that require multi-modal OCT correlation.
 
 ---

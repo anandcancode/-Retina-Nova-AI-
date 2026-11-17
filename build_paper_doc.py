@@ -19,7 +19,7 @@ PAPER_MD_PATH = os.path.join(BASE_DIR, "RESEARCH_PAPER.md")
 PAPER_DOCX_PATH = os.path.join(BASE_DIR, "RESEARCH_PAPER.docx")
 
 # Complete, deep, publication-standard academic paper text
-PAPER_CONTENT = """# Diabetic Retinopathy Detection Using Hybrid Deep Learning
+PAPER_CONTENT = r"""# Diabetic Retinopathy Detection Using Hybrid Deep Learning
 
 **Anand Raj Kushwaha**$^1$, **Dr. Sarah Smith**$^2$, **AI & Medical Imaging Research Group**$^1$  
 $^1$Department of Computer Science & Engineering  
@@ -362,6 +362,8 @@ Table 2 details the comparative empirical results of the proposed **RetinaNova A
 
 As demonstrated in Table 2, the proposed **RetinaNova AI** framework achieves a peak **Accuracy of 94.2%** and a **Quadratic Weighted Kappa of 0.916**, outperforming standalone EfficientNetB0 by +3.5% in accuracy and +0.032 in Kappa score, while utilizing only 7.9 million parameters—less than 6% of the parameter burden of VGG-16.
 
+![Figure 1: Training convergence and validation loss/accuracy dynamics over 50 epochs on benchmark fundus dataset](static/images/training_curves.png)
+
 ### 6.2 Per-Class Diagnostic Metrics
 
 Table 3 provides the granular, class-wise diagnostic breakdown of the proposed model on the hold-out test cohort across all 5 ICDR categories.
@@ -385,6 +387,8 @@ Critical clinical observations derived from Table 3:
 ---
 
 ### 6.3 Confusion Matrix and Error Analysis
+
+![Figure 2: Multiclass Normalized Confusion Matrix of the Dual-Branch Hybrid Network across the 5 ICDR severity stages](static/images/confusion_matrix.png)
 
 The normalized confusion matrix of the proposed architecture demonstrates overwhelming diagonal concentration:
 
@@ -703,6 +707,37 @@ def create_styled_word_document():
             run_code.font.name = 'Consolas'
             run_code.font.size = Pt(8.5)
             run_code.font.color.rgb = RGBColor(40, 40, 40)
+            i += 1
+            continue
+
+        # Image / Figure Detection: ![Caption](path)
+        elif line.startswith("![") and "](" in line and line.endswith(")"):
+            cap_start = line.find("[") + 1
+            cap_end = line.find("](")
+            path_start = cap_end + 2
+            path_end = line.rfind(")")
+            img_caption = line[cap_start:cap_end]
+            img_path = line[path_start:path_end].strip()
+
+            full_img_path = os.path.join(BASE_DIR, img_path) if not os.path.isabs(img_path) else img_path
+            if os.path.exists(full_img_path):
+                p_img = doc.add_paragraph()
+                p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                p_img.paragraph_format.space_before = Pt(8)
+                p_img.paragraph_format.space_after = Pt(2)
+                r_img = p_img.add_run()
+                r_img.add_picture(full_img_path, width=Inches(4.8))
+
+                p_cap = doc.add_paragraph()
+                p_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                p_cap.paragraph_format.space_before = Pt(0)
+                p_cap.paragraph_format.space_after = Pt(10)
+                r_cap = p_cap.add_run(img_caption)
+                r_cap.font.name = 'Times New Roman'
+                r_cap.font.size = Pt(9.5)
+                r_cap.font.italic = True
+                r_cap.font.bold = True
+                r_cap.font.color.rgb = RGBColor(60, 60, 60)
             i += 1
             continue
 
