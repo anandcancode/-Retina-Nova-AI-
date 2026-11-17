@@ -1,4 +1,4 @@
-# A Dual-Branch Hybrid Deep Learning Framework for Multi-Stage Diabetic Retinopathy Severity Grading with Adaptive Contrast Normalization
+# Diabetic Retinopathy Detection Using Hybrid Deep Learning
 
 **Anand Raj Kushwaha**$^1$, **Dr. Sarah Smith**$^2$, **AI & Medical Imaging Research Group**$^1$  
 $^1$Department of Computer Science & Engineering  

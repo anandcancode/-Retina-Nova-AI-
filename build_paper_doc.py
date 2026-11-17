@@ -18,7 +18,7 @@ PAPER_MD_PATH = "RESEARCH_PAPER.md"
 PAPER_DOCX_PATH = "RESEARCH_PAPER.docx"
 
 # Complete, deep, publication-standard academic paper text
-PAPER_CONTENT = """# A Dual-Branch Hybrid Deep Learning Framework for Multi-Stage Diabetic Retinopathy Severity Grading with Adaptive Contrast Normalization
+PAPER_CONTENT = """# Diabetic Retinopathy Detection Using Hybrid Deep Learning
 
 **Anand Raj Kushwaha**$^1$, **Dr. Sarah Smith**$^2$, **AI & Medical Imaging Research Group**$^1$  
 $^1$Department of Computer Science & Engineering  
