@@ -426,20 +426,30 @@ def serve_uploads(filename):
 
 @app.route("/download/paper")
 def download_paper():
-    """Download the academic research paper (.docx or .md)."""
+    """Download the academic research paper (.docx, .md, or .pptx presentation)."""
     format_type = request.args.get("format", "docx")
     if format_type == "md":
         paper_file = os.path.join(BASE_DIR, "RESEARCH_PAPER.md")
         mimetype = "text/markdown"
-        filename = "RetinaNova_AI_Research_Paper.md"
+        filename = "Diabetic_Retinopathy_Detection_Using_Hybrid_Deep_Learning_Paper.md"
+    elif format_type == "pptx":
+        paper_file = os.path.join(BASE_DIR, "PRESENTATION_SLIDES.pptx")
+        mimetype = "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        filename = "Diabetic_Retinopathy_Detection_Using_Hybrid_Deep_Learning_Presentation.pptx"
     else:
         paper_file = os.path.join(BASE_DIR, "RESEARCH_PAPER.docx")
         mimetype = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        filename = "RetinaNova_AI_Research_Paper.docx"
+        filename = "Diabetic_Retinopathy_Detection_Using_Hybrid_Deep_Learning_Paper.docx"
 
     if not os.path.exists(paper_file):
         abort(404)
     return send_file(paper_file, as_attachment=True, download_name=filename, mimetype=mimetype)
+
+
+@app.route("/download/slides")
+def download_slides():
+    """Direct route to download presentation slides."""
+    return redirect(url_for("download_paper", format="pptx"))
 
 
 # -------------------------------------------------------------

@@ -15,10 +15,13 @@
       A comprehensive guide to retinal pathology, clinical severity staging, early screening significance, and our dual-branch neural architecture.
     </p>
 
-    <!-- Research Paper Download Buttons -->
+    <!-- Research Paper & Presentation Download Buttons -->
     <div style="margin-top: 20px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
       <a href="{{ url_for('download_paper', format='docx') }}" class="btn btn-primary" style="box-shadow: var(--shadow-md);">
         <i class="fas fa-file-word"></i> Download Full Research Paper (.DOCX - 18 Pages)
+      </a>
+      <a href="{{ url_for('download_slides') }}" class="btn btn-purple" style="box-shadow: var(--shadow-md);">
+        <i class="fas fa-file-powerpoint"></i> Download Defense Slides (.PPTX - 15 Slides)
       </a>
       <a href="{{ url_for('download_paper', format='md') }}" class="btn btn-outline">
         <i class="fas fa-file-code"></i> View Full Paper Source (.MD)
