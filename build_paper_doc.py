@@ -14,8 +14,9 @@ from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
-PAPER_MD_PATH = "RESEARCH_PAPER.md"
-PAPER_DOCX_PATH = "RESEARCH_PAPER.docx"
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+PAPER_MD_PATH = os.path.join(BASE_DIR, "RESEARCH_PAPER.md")
+PAPER_DOCX_PATH = os.path.join(BASE_DIR, "RESEARCH_PAPER.docx")
 
 # Complete, deep, publication-standard academic paper text
 PAPER_CONTENT = """# Diabetic Retinopathy Detection Using Hybrid Deep Learning
